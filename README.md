@@ -5,9 +5,12 @@ create an account, fill out your bracket before the tournament starts, and
 watch it score itself automatically as real games finish — no one has to
 manually update anything once the tournament tips off.
 
-**Status:** backend complete and verified end-to-end against the real,
-completed 2026 tournament's historical data. Frontend (the actual pages
-people click through) is next.
+**Status:** feature-complete — signup/login, a bracket-filling UI grouped
+by region and round, a leaderboard, and the backend/live-scoring described
+below. Verified end-to-end against the real, completed 2026 tournament's
+historical data, and manually smoke-tested against every API endpoint.
+Not deployed live yet, and the real 2027 field won't be knowable until
+Selection Sunday (~March 2027).
 
 ## How the live scoring works
 
@@ -47,7 +50,12 @@ server/
   src/lib/espnSync.ts          # Orchestration: fetch ESPN, update the DB, rescore brackets
   src/routes/                  # Express routes: auth, brackets, tournament, leaderboard, admin
 
-client/                        # React frontend (not built yet)
+client/
+  src/lib/api.ts                # Fetch wrapper + typed API calls
+  src/context/AuthContext.tsx   # Login state, persisted to localStorage
+  src/pages/BracketPage.tsx     # The main bracket-filling UI
+  src/pages/LeaderboardPage.tsx
+  src/components/SlotCard.tsx   # One matchup: team names, pick buttons, correct/wrong coloring
 ```
 
 ## The yearly admin runbook
@@ -99,6 +107,7 @@ Championship. A perfect bracket scores 192 points (verified in testing).
 [Neon](https://neon.tech)).
 
 ```bash
+# Backend
 cd server
 npm install
 cp .env.example .env   # fill in DATABASE_URL, JWT_SECRET, SYNC_SECRET
@@ -106,6 +115,12 @@ npx prisma generate
 npm run db:push         # create the tables
 npm run db:seed         # after filling in data/2027-field.json for real
 npm run dev              # starts the API on :4000
+
+# Frontend, in a separate terminal
+cd client
+npm install
+cp .env.example .env   # VITE_API_URL, defaults to localhost:4000
+npm run dev              # starts the app on :5173
 ```
 
 Generate real secrets (don't reuse the `.env.example` placeholders) with:
@@ -117,12 +132,15 @@ openssl rand -hex 32
 ## Testing
 
 ```bash
-cd server && npm test
+cd server && npm test   # 29 tests: bracket structure, scoring, ESPN parsing
+cd client && npm test   # 10 tests: API client, bracket matchup card
 ```
 
-29 tests covering the bracket structure math, the scoring engine, and the
-ESPN response parsing — all pure functions, no database or network needed
-to run them.
+The server's tests are all pure functions (no database or network needed
+to run them). The full request/response flow — signup, create a bracket,
+submit picks, watch a later round resolve from earlier picks, reject an
+invalid pick, leaderboard — was verified manually against a live server
+with curl rather than as an automated integration test.
 
 ## Deployment
 
@@ -139,9 +157,11 @@ to run them.
 
 ## What's next
 
-- The actual frontend: signup/login, bracket-filling UI, the leaderboard.
+- Deploy it (see Deployment above).
 - A known limitation to fix eventually: changing an earlier-round pick
   doesn't cascade-clear later-round picks that depended on it (see the
   comment in `server/src/routes/brackets.ts`). Not a scoring risk — the
   whole bracket locks before any real games start either way — but worth
   cleaning up.
+- The bracket UI is a functional column layout, not a visual bracket tree
+  with connecting lines — deliberately kept simple for now.
