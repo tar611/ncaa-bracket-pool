@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  displayName  String
+  createdAt    DateTime  @default(now())
+  brackets     Bracket[]
+}
+
+enum Region {
+  SOUTH
+  EAST
+  MIDWEST
+  WEST
+  // Final Four and Championship games aren't tied to a region.
+  NATIONAL
+}
+
+enum Round {
+  ROUND_64
+  ROUND_32
+  SWEET_16
+  ELITE_8
+  FINAL_4
+  CHAMPIONSHIP
+}
+
+enum GameStatus {
+  SCHEDULED
+  IN_PROGRESS
+  FINAL
+}
+
+model Team {
+  id     String @id @default(cuid())
+  name   String
+  seed   Int
+  region Region
+
+  // ESPN's team id for this tournament field, used to match live scoreboard
+  // events back to a Team without relying on fuzzy name matching.
+  espnTeamId String? @unique
+
+  slotsAsTeam1 BracketSlot[] @relation("SlotTeam1")
+  slotsAsTeam2 BracketSlot[] @relation("SlotTeam2")
+  slotsWon     BracketSlot[] @relation("SlotWinner")
+  picks        Pick[]
+
+  @@unique([seed, region])
+}
+
+// The single, real tournament bracket — one row per one of the 63 games.
+// This is shared/global data, not tied to any individual user's picks.
+// Round 1 slots are filled in from the seed script once the field is
+// announced; every later round's teams start empty and get filled in by
+// the score-sync job as earlier games are decided.
+model BracketSlot {
+  id     String @id @default(cuid())
+  round  Round
+  region Region
+
+  // Position within (round, region) — see src/lib/bracketStructure.ts for
+  // the seed-pairing convention this follows (e.g. Round 64 slot 0 is
+  // always the 1-vs-16 game in that region).
+  slotIndex Int
+
+  team1Id String?
+  team1   Team?   @relation("SlotTeam1", fields: [team1Id], references: [id])
+  team2Id String?
+  team2   Team?   @relation("SlotTeam2", fields: [team2Id], references: [id])
+
+  team1Score Int?
+  team2Score Int?
+
+  winnerTeamId String?
+  winnerTeam   Team?   @relation("SlotWinner", fields: [winnerTeamId], references: [id])
+
+  status      GameStatus @default(SCHEDULED)
+  scheduledAt DateTime?
+
+  // ESPN's event id for this specific game, once it's known — set by the
+  // score-sync job the first time it matches this slot to a live event.
+  espnEventId String? @unique
+
+  picks Pick[]
+
+  @@unique([round, region, slotIndex])
+}
+
+// One user's full set of predictions for the tournament. A user can only
+// have one bracket per tournament (enforced by the unique constraint) so
+// there's no ambiguity about which one counts for scoring.
+model Bracket {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  name   String
+
+  // Denormalized cache, recomputed by the scoring engine any time a
+  // BracketSlot's result changes — avoids re-summing every pick on every
+  // leaderboard page load.
+  totalScore Int @default(0)
+
+  createdAt DateTime @default(now())
+  picks     Pick[]
+
+  @@unique([userId])
+}
+
+// A single predicted winner for a single bracket slot. Which two teams are
+// "in" that slot from the user's perspective is derived at read time from
+// their own earlier-round picks (see bracketStructure.ts), not stored here
+// — this table only records the one thing the user actually chose.
+model Pick {
+  id        String      @id @default(cuid())
+  bracketId String
+  bracket   Bracket     @relation(fields: [bracketId], references: [id], onDelete: Cascade)
+  slotId    String
+  slot      BracketSlot @relation(fields: [slotId], references: [id])
+
+  predictedWinnerTeamId String
+  predictedWinnerTeam   Team   @relation(fields: [predictedWinnerTeamId], references: [id])
+
+  @@unique([bracketId, slotId])
+}

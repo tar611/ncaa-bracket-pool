@@ -1,0 +1,324 @@
+{
+  "teams": [
+    {
+      "region": "SOUTH",
+      "seed": 1,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 2,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 3,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 4,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 5,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 6,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 7,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 8,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 9,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 10,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 11,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 12,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 13,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 14,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 15,
+      "name": "TBD"
+    },
+    {
+      "region": "SOUTH",
+      "seed": 16,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 1,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 2,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 3,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 4,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 5,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 6,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 7,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 8,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 9,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 10,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 11,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 12,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 13,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 14,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 15,
+      "name": "TBD"
+    },
+    {
+      "region": "EAST",
+      "seed": 16,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 1,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 2,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 3,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 4,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 5,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 6,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 7,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 8,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 9,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 10,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 11,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 12,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 13,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 14,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 15,
+      "name": "TBD"
+    },
+    {
+      "region": "MIDWEST",
+      "seed": 16,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 1,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 2,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 3,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 4,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 5,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 6,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 7,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 8,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 9,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 10,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 11,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 12,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 13,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 14,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 15,
+      "name": "TBD"
+    },
+    {
+      "region": "WEST",
+      "seed": 16,
+      "name": "TBD"
+    }
+  ]
+}

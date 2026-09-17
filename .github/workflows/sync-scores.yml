@@ -1,0 +1,20 @@
+name: Sync tournament scores
+
+on:
+  # Every 20 minutes, but only in March/April — the tournament window, with
+  # a little slack on both ends. No point spending Actions minutes pinging
+  # ESPN the other ten months of the year when there's no game to sync.
+  schedule:
+    - cron: "*/20 * * 3,4 *"
+  # Lets you trigger a sync manually from the Actions tab too, e.g. to
+  # backfill after fixing a bug or to test the pipeline before the season.
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call the sync-scores endpoint
+        run: |
+          curl -sf -X POST "${{ secrets.API_URL }}/api/admin/sync-scores" \
+            -H "x-sync-secret: ${{ secrets.SYNC_SECRET }}"
