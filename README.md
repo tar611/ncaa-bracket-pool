@@ -144,12 +144,15 @@ with curl rather than as an automated integration test.
 
 ## Deployment
 
-- **Backend — Render**, same as this portfolio's job-tracker app: a Web
-  Service with root directory `server`, build command
-  `npm install && npx prisma generate && npm run build`, start command
-  `npm start`. Environment variables: `DATABASE_URL`, `JWT_SECRET`,
-  `SYNC_SECRET`.
-- **Frontend — Vercel**, deployed as `tarbracket`.
+- **Backend — Render.** A `render.yaml` blueprint is checked in, so setup
+  is just: Render dashboard → **New +** → **Blueprint** → select this repo
+  → it reads `render.yaml` and prompts you for the three env var values
+  (`DATABASE_URL`, `JWT_SECRET`, `SYNC_SECRET` — generate the last two with
+  `openssl rand -hex 32`) → deploy. This step needs your own Render login
+  in a browser, so it can't be automated from here.
+- **Frontend — Vercel**, deployed as `tarbracket`. Set `VITE_API_URL` in
+  the Vercel project's environment variables to the Render backend's URL
+  once that's deployed.
 - **Score sync — GitHub Actions**, `.github/workflows/sync-scores.yml`,
   scheduled every 20 minutes in March/April. Needs two repo secrets:
   `API_URL` (the deployed backend's base URL) and `SYNC_SECRET` (must match
